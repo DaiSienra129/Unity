@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ed99ff779b54c46cab9f7d1211724b8b
+guid: 1dc1013ff09874361b9c46b446e7c8a6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6002183883260865002
-    second: cora_0
+      213: -1165204622999734740
+    second: "\u2014Pngtree\u2014corazon rojo de amor_6152209_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +46,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cora_0
+      name: "\u2014Pngtree\u2014corazon rojo de amor_6152209_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 360
-        height: 311
+        x: 47
+        y: 126
+        width: 1108
+        height: 947
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 61659a12f85f3bca0800000000000000
-      internalID: -6002183883260865002
+      spriteID: c263573a19c54dfe0800000000000000
+      internalID: -1165204622999734740
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cora_0: -6002183883260865002
+      "\u2014Pngtree\u2014corazon rojo de amor_6152209_0": -1165204622999734740
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
