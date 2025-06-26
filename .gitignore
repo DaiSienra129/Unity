@@ -97,3 +97,64 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+# ========== UNITY ==========
+
+# Archivos y carpetas que Unity genera automáticamente
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+UserSettings/
+.vscode/
+
+# Carpetas de cache
+.cache/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+
+# Archivos de compilación de Rider/Visual Studio/JetBrains
+.idea/
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# Configuraciones de paquetes descargados
+Packages/manifest.json
+Packages/packages-lock.json
+
+# Builds de tu juego
+*.apk
+*.aab
+*.xcodeproj/
+*.xcworkspace/
+*.app
+*.exe
+
+# Burst Debug Information
+**/TP_BurstDebugInformation_DoNotShip
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos personales del desarrollador
+*.swp
+*.bak
+*.tmp
+
+# ========================================
+
