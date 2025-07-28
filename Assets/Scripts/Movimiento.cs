@@ -6,127 +6,132 @@ using Unity.VisualScripting;
 
 using UnityEngine.SceneManagement;
 
-
 public class Movimiento : MonoBehaviour
 {
-    public float runSpeed=2;
-    public float jumpSpeed=3; //primer salto
+    public float runSpeed = 2f;
+    public float jumpSpeed = 3f;
+    public float doubleJumpSpeed = 2.5f;
+    private bool canDoubleJump;
 
-    public float doubleJumpSpeed =2.5f;//para el doble salto
+    private Rigidbody2D rb2D;
 
-    private bool canDoubleJump; //saber cuando hacer el doble salto
-
-    Rigidbody2D rd2D;
-
-    public bool betterJump= false;
-
-    public float fallMultipier = 0.5f;
-
-    public float lowJumpMultipier = 1f;
+    public bool betterJump = false;
+    public float fallMultiplier = 0.5f;
+    public float lowJumpMultiplier = 1f;
 
     public SpriteRenderer spriteRenderer;
-
     public Animator animator;
 
-    [Obsolete]
-     void Awake()
+    private static Movimiento instance;
+
+    void Awake()
     {
-        // ∴ evita duplicados
-        if (FindObjectsOfType<Movimiento>().Length > 1)
+        // 🧠 Singleton para evitar duplicados
+        if (instance == null)
         {
-            Destroy(gameObject);
-            return;
+            instance = this;
+            DontDestroyOnLoad(gameObject); // mantiene a Frog entre escenas
         }
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            Destroy(gameObject); // destruye duplicados
+        }
     }
-    // Unity llama a este método cada vez que se carga escena
-    void OnEnable()           => SceneManager.sceneLoaded += OnSceneLoaded;
-    void OnDisable()          => SceneManager.sceneLoaded -= OnSceneLoaded;
+
+    void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
+    void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // mueve al jugador al SpawnPoint de la nueva escena
         Transform sp = GameObject.FindWithTag("SpawnPoint")?.transform;
         if (sp != null) transform.position = sp.position;
     }
-   
-    void Start(){
-        rd2D = GetComponent<Rigidbody2D>();
+
+    void Start()
+    {
+        rb2D = GetComponent<Rigidbody2D>();
+        
+
+    GameObject spawn = GameObject.FindWithTag("SpawnPoint");
+    if (spawn != null)
+    {
+        transform.position = spawn.transform.position;
+    }
+    else
+    {
+        Debug.LogWarning("No se encontró el SpawnPoint con tag asignado.");
     }
 
-    private void Update()
+
+    }
+
+    void Update()
     {
-        if (Input.GetKey("space")) //saltar
+        if (Input.GetKey("space"))
         {
-            if (CheckGround.isGrounded)//comprobar si esta o no en el suelo
+            if (CheckGround.isGrounded)
             {
                 canDoubleJump = true;
-                rd2D.linearVelocity = new Vector2(rd2D.linearVelocityX, jumpSpeed);
-
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpSpeed);
             }
-            else
+            else if (Input.GetKeyDown("space") && canDoubleJump)
             {
-                if (Input.GetKeyDown("space"))
-                {
-                    if (canDoubleJump)
-                    {
-                        animator.SetBool("DoubleJump", true);
-                        rd2D.linearVelocity = new Vector2(rd2D.linearVelocityX, doubleJumpSpeed);
-                        canDoubleJump = false;
-                    }
-                }
+                animator.SetBool("DoubleJump", true);
+                rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, doubleJumpSpeed);
+                canDoubleJump = false;
             }
         }
 
-        if (CheckGround.isGrounded == false) //'cuando estemos en el suelo'
+        // Animaciones de salto
+        if (!CheckGround.isGrounded)
         {
             animator.SetBool("Jump", true);
             animator.SetBool("Run", false);
-
         }
-        if (CheckGround.isGrounded == true)
+        else
         {
             animator.SetBool("Jump", false);
             animator.SetBool("DoubleJump", false);
             animator.SetBool("Falling", false);
         }
-        if (rd2D.linearVelocityY <0) {
-             animator.SetBool("Falling", true);
-         }  else
-         
-            if (rd2D.linearVelocityY > 0 && !Input.GetKey("space") )
-            
-        {
+
+        if (rb2D.linearVelocity.y < 0)
+            animator.SetBool("Falling", true);
+        else if (rb2D.linearVelocity.y > 0 && !Input.GetKey("space"))
             animator.SetBool("Falling", false);
-        } 
-        
-         
     }
 
-    void FixedUpdate(){
-        if(Input.GetKey("d")|| Input.GetKey("right") ){
-           // rd2D.velocity = new Vector2(runSpeed,rd2D.linearVelocityY);
-            rd2D.linearVelocity = new Vector2(runSpeed,rd2D.linearVelocityY);
-            spriteRenderer.flipX = false; //para que mire a la derecha al moverse
+    void FixedUpdate()
+    {
+        // Movimiento horizontal
+        if (Input.GetKey("d") || Input.GetKey("right"))
+        {
+            rb2D.linearVelocity = new Vector2(runSpeed, rb2D.linearVelocity.y);
+            spriteRenderer.flipX = false;
             animator.SetBool("Run", true);
         }
-        else if(Input.GetKey("a")|| Input.GetKey("left")){
-             rd2D.linearVelocity = new Vector2(-runSpeed,rd2D.linearVelocityY);
-              spriteRenderer.flipX = true; //para que mire a la izquierda al moverse
-              animator.SetBool("Run", true);
+        else if (Input.GetKey("a") || Input.GetKey("left"))
+        {
+            rb2D.linearVelocity = new Vector2(-runSpeed, rb2D.linearVelocity.y);
+            spriteRenderer.flipX = true;
+            animator.SetBool("Run", true);
         }
-        else {
-            rd2D.linearVelocity = new Vector2(0,rd2D.linearVelocityY);
+        else
+        {
+            rb2D.linearVelocity = new Vector2(0, rb2D.linearVelocity.y);
             animator.SetBool("Run", false);
         }
-     
-        if(betterJump){
-            if(rd2D.linearVelocityY<0){
-                rd2D.linearVelocity += Vector2.up*Physics2D.gravity.y*(fallMultipier)*Time.deltaTime;
+
+        // Mejora de salto
+        if (betterJump)
+        {
+            if (rb2D.linearVelocity.y < 0)
+            {
+                rb2D.linearVelocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
             }
-            if(rd2D.linearVelocityY>0 && !Input.GetKey("space")){
-            rd2D.linearVelocity += Vector2.up*Physics2D.gravity.y*(lowJumpMultipier)*Time.deltaTime;
-            
+            else if (rb2D.linearVelocity.y > 0 && !Input.GetKey("space"))
+            {
+                rb2D.linearVelocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
             }
         }
     }
