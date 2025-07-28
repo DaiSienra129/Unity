@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-
-
-
+//----------------------------------------------------------
+//Detectar si el personaje está en contacto con el suelo. 
+//---------------------------------------------------------
 public class CheckGround : MonoBehaviour
 {
     public static bool isGrounded;
@@ -11,6 +11,7 @@ public class CheckGround : MonoBehaviour
     // Cuando entra en contacto con el suelo
     void OnTriggerEnter2D(Collider2D col)
     {
+        //Se ejecuta una vez cuando el collider del personaje entra en contacto con un collider tipo “Trigger” (generalmente el suelo).
         isGrounded = true;
         Debug.Log("✅ Piso detectado por CheckGround");
     }
@@ -18,43 +19,18 @@ public class CheckGround : MonoBehaviour
     // Mientras está tocando el suelo
     void OnTriggerStay2D(Collider2D col)
     {
+        //Se ejecuta constantemente mientras el personaje siga en contacto con el suelo.
         isGrounded = true;
     }
 
     // Cuando deja de tocar el suelo
     void OnTriggerExit2D(Collider2D col)
     {
+        //Se ejecuta cuando el personaje deja de tocar el suelo.
         isGrounded = false;
         Debug.Log("🚀 Frog dejó el suelo");
     }
 }
 
-/*public class CheckGround : MonoBehaviour
-{
-    //public static bool isGrounded;
-    //void OnTriggerStay2D(Collider2D col) => isGrounded = true;
 
-    public static bool isGrounded;
-
-    void OnTriggerEnter2D(Collider2D col) => isGrounded = true;
-    void OnTriggerStay2D (Collider2D col) => isGrounded = true;
-    void OnTriggerExit2D (Collider2D col) => isGrounded = false;
-
-     private void OnTriggerEnter2D(Collider2D collision)
-     {
-         if (collision.CompareTag("Ground"))
-         {
-              isGrounded = true;
-         }
-
-     }
-
-     private void OnTriggerExit2D(Collider2D collision)
-     {
-
-         if (collision.CompareTag("Ground"))
-         {
-              isGrounded = false;
-         }
-     }*/
 

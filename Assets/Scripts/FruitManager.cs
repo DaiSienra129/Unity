@@ -5,16 +5,22 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 
-
+/*
+-------------------------------------------------------------------
+Controlar la cantidad de frutas en la escena, actualizar la UI en pantalla
+ con la cantidad recolectada, y avanzar de nivel una vez que se hayan recogido 
+ todas las frutas.
+-------------------------------------------------------------------
+*/
 
 public class FruitManager : MonoBehaviour
 {
     public int totalFruits;  // Total frutas en la escena
-    private int fruitsCollected = 0;
+    private int fruitsCollected = 0; // Contador de frutas recogidas
 
-    public TextMeshProUGUI totalFruits2;
+    public TextMeshProUGUI totalFruits2; // Texto UI que muestra el total
 
-    public TextMeshProUGUI fruitCollected;
+    public TextMeshProUGUI fruitCollected; // Texto UI que muestra cuántas quedan
 
     private int totalFruitsInLevel;
 
@@ -25,9 +31,11 @@ public class FruitManager : MonoBehaviour
         totalFruitsInLevel = transform.childCount;
     }
 
+//Actualiza los textos de UI cada frame
     public void Update()
     {
-            if (totalFruits2 != null)
+        // Actualiza los textos en pantalla, si están asignados
+        if (totalFruits2 != null)
         {
             totalFruits2.text = totalFruitsInLevel.ToString();
         }
@@ -36,14 +44,13 @@ public class FruitManager : MonoBehaviour
         {
             fruitCollected.text = transform.childCount.ToString();
         }
-        /*totalFruits2.text = totalFruitsInLevel.ToString();
-        fruitCollected.text = transform.childCount.ToString();
-        */
+
     }
 
+//Lo llama cada fruta al recogerse; si se juntan todas, cambia de escena
     public void FruitCollected()
     {
-        fruitsCollected++;
+        fruitsCollected++; // Aumenta el contador interno
         Debug.Log("Frutas recogidas: " + fruitsCollected);
 
         if (fruitsCollected >= totalFruits)
@@ -53,36 +60,3 @@ public class FruitManager : MonoBehaviour
         }
     }
 }
-/*
-public class FruitManager : MonoBehaviour
-{
-    // Este método será llamado desde el script de cada fruta
-    public void CheckAllFruitsCollected()
-    {
-        if (transform.childCount == 0)
-        {
-            Debug.Log("¡No quedan frutas, victoria!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        }
-    }
-}*/
-
-/*public class FruitManager : MonoBehaviour
-{
-   private void Update()
-    {
-        AllFruitsCollected();
-    }
-
-    public void AllFruitsCollected()
-    {
-        if (transform.childCount == 0)
-        {
-            Debug.Log("No quedan frutas, Victoria!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); //cambiar de escena
-        }
-    }
-
-
-}
-*/

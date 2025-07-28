@@ -1,7 +1,12 @@
 
 using UnityEngine;
 
-
+/*
+------------------------------------------------------
+solo recoger la fruta, activar animaciones/hijos, o notificar a un
+ sistema central.
+------------------------------------------------------
+*/
 
 public class Fruit : MonoBehaviour
 {
@@ -9,6 +14,7 @@ public class Fruit : MonoBehaviour
 
     private void Start()
     {
+        // Busca el GameObject llamado "FruitManager" en la escena y obtiene su script
         manager = GameObject.Find("FruitManager").GetComponent<FruitManager>();
     }
 
@@ -31,45 +37,4 @@ public class Fruit : MonoBehaviour
         }
     }
 }
-/*
-public class Fruit : MonoBehaviour
-{
-    private FruitManager manager;
 
-    private void Start()
-    {
-        manager = GameObject.Find("FruitManager").GetComponent<FruitManager>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-
-            if (transform.childCount > 0)
-                transform.GetChild(0).gameObject.SetActive(true);
-
-            Destroy(gameObject, 0.5f);
-
-            if (manager != null)
-                manager.CheckAllFruitsCollected();
-        }
-    }
-}*/
-
-/*
-public class Fuit : MonoBehaviour
-{
-    [System.Obsolete]
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-
-            Destroy(gameObject, 0.5f);
-        }
-    }
-}*/
