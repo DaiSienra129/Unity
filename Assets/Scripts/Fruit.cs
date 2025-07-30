@@ -11,11 +11,14 @@ solo recoger la fruta, activar animaciones/hijos, o notificar a un
 public class Fruit : MonoBehaviour
 {
     private FruitManager manager;
+    private AudioSource audioSource;
 
     private void Start()
     {
         // Busca el GameObject llamado "FruitManager" en la escena y obtiene su script
         manager = GameObject.Find("FruitManager").GetComponent<FruitManager>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,6 +28,11 @@ public class Fruit : MonoBehaviour
             // Desactivar el sprite y el collider para evitar múltiples triggers
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<Collider2D>().enabled = false;
+
+            if (audioSource != null)
+            {
+                audioSource.Play();
+            }
 
             // Notificar al manager que una fruta fue recogida
             if (manager != null)
